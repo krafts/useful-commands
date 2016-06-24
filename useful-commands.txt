@@ -1,0 +1,95 @@
+########### START in general bash ###########
+# get ack in /usr/bin. run with root privs
+curl http://beyondgrep.com/ack-2.14-single-file > /usr/bin/ack && chmod 0755 !#:3
+curl http://beyondgrep.com/ack-2.14-single-file > /tmp/ack && chmod 0755 !#:3 
+ 
+VBoxManage list runningvms
+VBoxManage controlvm <uuid> poweroff
+VBoxManage unregistervm <uuid>
+vagrant global-status --prune
+ 
+ 
+find . -type f  -name "*.html" -exec sh -c "gzip < {} > {}.gz" \;
+ 
+ 
+java -cp catalina.jar org.apache.catalina.util.ServerInfo
+ 
+## list out all the files in the yum package
+repoquery --list log4j
+ 
+## list out all the files in the rpm package
+rpm -ql package-name  #already installed
+rpm -qlp package.rpm  #a file
+ 
+## check for eth1 interface in an env, run --tags rackspace_provision_dns to fix this issue on that machine
+ansible -vv all:\!spawn_servers -i inventory/inventory_file -m shell -a 'h=$(hostname); h_int=$(echo $h | perl -pe "s|(.*?)(\..*)|\1-int\2|" ); h_app=$(echo $h_int | sed "s/-int/-app/g"); echo $h $(dig +short $h); echo $h_int $(dig +short $h_int); echo $h_app $(dig +short $h_app)' | grep -v ">>" | grep -v "#USE_SHELL" | grep -ve "^$" | sort
+ 
+## pretty print json
+## https://stackoverflow.com/questions/352098/how-can-i-pretty-print-json
+echo '{"foo": "lorem", "bar": "ipsum"}' | python -m json.tool
+ 
+## convert json to yaml
+python -c "import sys; import yaml; import json;  f=open(sys.argv[1]); c=f.read(); f.close(); print yaml.safe_dump(json.loads(c))" file.json
+ 
+## convert yaml to json
+python -c "import sys; import yaml; import json;  f=open(sys.argv[1]); c=f.read(); f.close(); print json.dumps(yaml.load(c))" file.yaml
+ 
+## get ulimit count
+ps -eLF -U chassis | wc -l
+#       U userlist      Select by effective user ID (EUID) or name.
+#                       This selects the processes whose effective user name or ID is in userlist. The effective user ID describes the user whose file access permissions are used by the process (see geteuid(2)).
+#                       Identical to -u and --user.
+#       -U userlist     select by real user ID (RUID) or name.
+#                       It selects the processes whose real user name or ID is in the userlist list. The real user ID identifies the user who created the process, see getuid(2).
+ 
+## making sure certs are only 64 chars in length in a line, the fold command, base64 is an encoding example (for decoding base64 --decode)
+echo testeeststislkjlksjdljdoisuodsufioshiofdbosibdfpbipaheripuiephehiprwihgwuipbegrpuwbuiprgbupiewbirgbpwibgpwibrepiubgweiupbgirupbpierbgpwbgperbpwfnpoiuerhgieprbiearbipuaeruaber | base64 | fold -w64
+dGVzdGVlc3RzdGlzbGtqbGtzamRsamRvaXN1b2RzdWZpb3NoaW9mZGJvc2liZGZw
+YmlwYWhlcmlwdWllcGhlaGlwcndpaGd3dWlwYmVncnB1d2J1aXByZ2J1cGlld2Jp
+cmdicHdpYmdwd2licmVwaXViZ3dlaXVwYmdpcnVwYnBpZXJiZ3B3YmdwZXJicHdm
+bnBvaXVlcmhnaWVwcmJpZWFyYmlwdWFlcnVhYmVyCg==
+ 
+## check hdd is ssd, 0 is ssd, 1 is spin disk, https://unix.stackexchange.com/questions/65595/how-to-know-if-a-disk-is-an-ssd-or-an-hdd
+cat /sys/block/xvda/queue/rotational
+ 
+## filesystem type of unmounted disk
+blkid -o value -s TYPE /dev/block/device
+file -Ls /dev/block/device
+ 
+## disk space computations
+### sort dirs by size and then print human readable size
+du -bs /var/log/* | sort -nr  | awk '{print $2}' | xargs  du -hs
+### sum directory/file sizes
+find /var/log -type f -mtime -1 -name *.tar.gz | xargs du -hbs | awk '{SUM += $1} END {print SUM}'
+ 
+### kill excessive stuck rsyslog processes which are in sleeping state anyways but the not the current active daemon (which could also be in a sleeping state momentarily)
+kill -9 $(ps auxxww | grep "/sbin/rsyslogd -i /var/run/syslogd.pid" | grep -v grep | grep -v $(service rsyslog status | grep -o '[0-9]\+') | awk '{print $2}')
+ 
+ 
+ 
+### grep skip empty lines
+grep -v "^$"
+ 
+## ifconfig replacement, ip
+>> $ ip -4 -o a
+1: lo    inet 127.0.0.1/8 scope host lo
+2: eth0    inet 104.239.234.178/24 brd 104.239.234.255 scope global eth0
+3: eth1    inet 10.210.1.123/19 brd 10.210.31.255 scope global eth1
+4: eth2    inet 10.76.30.185/24 brd 10.76.30.255 scope global eth2
+>> $ ip -4 -o a s eth1
+3: eth1    inet 10.210.1.123/19 brd 10.210.31.255 scope global eth1
+ 
+## get eth1 ip
+ip -o -4 a s eth1 | awk '{gsub("/.*","",$4)} {print $4}'
+ip -o -4 a s eth1 | awk '{print $4}' |awk -F'/' '{print $1}'
+ 
+## xz
+tar cf - directory/ | xz -zf - > directory.tar.xz
+tar -cvJf directory.tar.xz directory
+ 
+## bash parameter substitution
+${xyz##*/}   ## basename
+${xyz%/*}    ## dirname
+
+########### END in general bash ###########
+
