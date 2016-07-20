@@ -1,0 +1,6 @@
+## safely update coreos
+systemctl unmask update-engine.service
+systemctl start update-engine.service
+update_engine_client -update
+reboot
+systemctl mask update-engine.service
