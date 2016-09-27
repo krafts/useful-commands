@@ -1,0 +1,12 @@
+## was looking for X-Forwarder-For
+tcpdump -XX -e -vvv -i eth1 tcp and dst host 10.208.195.149
+
+## command to do the same (X-Forwarder-For)
+tcpdump -A -s 0 'tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)'
+
+## looking for incoming traffic on a port
+tcpdump -XX -e -vvv -i eth1 tcp port 9204
+
+## get ascii text of data for a specific packet destination ip
+tcpdump -A -e -vvv -i eth1 dst 10.187.190.62
+
