@@ -4,9 +4,9 @@ tcpdump -XX -e -vvv -i eth1 tcp and dst host 10.208.195.149
 ## command to do the same (X-Forwarder-For)
 tcpdump -A -s 0 'tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)'
 
-## looking for incoming traffic on a port
+## looking for incoming traffic on a port, -XX prints link level headers and headers+data in hex and ascii, -X prints only headers+data
 tcpdump -XX -e -vvv -i eth1 tcp port 9204
 
-## get ascii text of data for a specific packet destination ip
+## get ascii text of data for a specific packet destination ip, -XX prints link level headers and headers+data in hex and ascii, -X prints only headers+data, -A prints headers+data in ascii only
 tcpdump -A -e -vvv -i eth1 dst 10.187.190.62
 
