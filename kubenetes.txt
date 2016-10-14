@@ -16,3 +16,6 @@ kubectl patch nodes $NODENAME -p '{"spec": {"unschedulable": true}}'
 
 ### ansible command get ips of all pods
 ansible -vv -i inventory/<inventory_file> <kubernetes_master_host_group> -m shell -a 'kubectl get pods --namespace <namespace> --no-headers | grep -v <exclusion_1> | grep -v <exclusion_2>  | awk "{print \$1}" | while read i; do ip=$(kubectl describe pod $i --namespace <namespace> | grep "IP:" | awk "{print \$2}"); echo -e  "$i\t$ip"; done;'
+
+### scale replicas
+kubectl scale rc <rc_name> --replicas=3  --namespace <namespace>
