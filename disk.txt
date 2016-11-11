@@ -1,0 +1,22 @@
+## check hdd is ssd, 0 is ssd, 1 is spin disk, https://unix.stackexchange.com/questions/65595/how-to-know-if-a-disk-is-an-ssd-or-an-hdd
+cat /sys/block/xvda/queue/rotational
+
+## filesystem type of unmounted disk
+blkid -o value -s TYPE /dev/block/device
+file -Ls /dev/block/device
+
+## adding mounts
+1 - Find out the device that the storage is attached to, this should be something like /dev/xvdb.
+2 - go to that server, and fdisk it:
+fdisk /dev/xvdb
+n - create a new partition
+choose primary, partition 1, use all the space
+write the table to disk.
+3 - Create a filesystem on the new partition
+mkfs.ext3 /dev/xvdb1
+4 - create the mount point
+mkdir /bigdata
+5 - add fstab entry like so
+/dev/xvdb1              /bigdata                    ext3    defaults,noatime,barrier=0 1 1
+6 - mount it
+mount /bigdata
