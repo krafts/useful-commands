@@ -1,0 +1,16 @@
+##for errors like following:
+rpmdb: unable to join the environment
+error: db3 error(11) from dbenv->open: Resource temporarily unavailable
+error: cannot open Packages index using db3 - Resource temporarily unavailable (11)
+error: cannot open Packages database in /var/lib/rpm
+CRITICAL:yum.main:
+
+Error: rpmdb open failed
+
+
+
+## remove outdated lock files:
+rm -f /var/lib/rpm/__db*
+
+## rebuild rpm database:
+rpm -vv --rebuilddb
