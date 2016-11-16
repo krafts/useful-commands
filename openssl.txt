@@ -1,0 +1,4 @@
+## for compiling libs dependent on openssl libs on mac os x
+
+export CFLAGS="-I/usr/local/ssl/include"
+export LDFLAGS="-L/usr/local/lib"
