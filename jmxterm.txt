@@ -1,0 +1,2 @@
+### force terminate repairs in cassandra using jmxterm
+echo "run -b org.apache.cassandra.db:type=StorageService forceTerminateAllRepairSessions" > java -jar /opt/datadog-agent/agent/checks/libs/jmxterm-1.0-DATADOG-uber.jar -l localhost:7199
