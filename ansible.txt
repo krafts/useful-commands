@@ -1,0 +1,4 @@
+## ansible host range for adhoc commands
+ansible -vv -i inventory/qat2 cassandra_servers[0-3] -m ping ## correct
+ansible -vv -i inventory/qat2 cassandra_servers[0:3] -m ping ## incorrect
+
