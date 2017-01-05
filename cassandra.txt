@@ -1,0 +1,1 @@
+<path>/cassandra/tools/bin/cassandra-stress write n=1000000 -mode native cql3 user=user password=password   -node 10.10.10.1,10.10.10.2,10.10.10.3
