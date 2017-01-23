@@ -1,0 +1,2 @@
+### integer padding
+for i in $(seq -f "%04g" 50); do h="host-$i.host.com"; scp $h:/var/log/$h.logs.$(date +%Y-%m-%d).tar.gz .; done;
