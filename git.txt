@@ -1,0 +1,3 @@
+## rebasing including the init commit
+### http://stackoverflow.com/questions/2246208/change-first-commit-of-project-with-git/#2309391
+git rebase [-i] --root $tip
