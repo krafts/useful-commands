@@ -22,3 +22,6 @@ kubectl scale rc <rc_name> --replicas=3  --namespace <namespace>
 
 ### get all services with nodeports
 kubectl get services --all-namespaces -o yaml | grep -B9 nodePort | grep -e name -e namespace  -e nodePort | grep -v namespaces | grep -v '\- name' | while read i; do if [ -z "${i##*namespace:*}" ]; then namespace=$(echo $i | sed 's/namespace: //g'); fi; if [ -z "${i##*name:*}" ]; then service=$(echo $i | sed 's/name: //g'); fi; if [ -z "${i##*nodePort:*}" ]; then  nodeport=$(echo $i | sed 's/nodePort: //g'); fi; if [ -n "$nodeport" ]; then echo "$namespace/$service $nodeport"; unset nodeport; fi; done;
+
+### get all services with nodeports using jq
+kubectl get services --all-namespaces -o json | jq '.items[] |  .spec.ports[].nodePort as $nodePort | if $nodePort != null then .metadata.name +"  " + .metadata.namespace + "  "+($nodePort | tostring)  else "EXCLUDE"  end'  | grep -v "EXCLUDE" | sed 's/"//g'

@@ -6,3 +6,7 @@ curl -s  -H "X-Auth-Token: notreal" https://iad.servers.api.rackspacecloud.com/v
 | jq '.[] | to_entries[]'
 
 cat servers.txt  | while read i; do curl -s -H "X-Auth-Token: notreal" https://iad.servers.api.rackspacecloud.com/v2/<account>/servers/$i | jq .server.id,.server.name,.server.created; echo; echo; echo; done > servers_details.txt
+
+
+### jq to get kubernetes services with nodeports
+kubectl get services --all-namespaces -o json | jq '.items[] |  .spec.ports[].nodePort as $nodePort | if $nodePort != null then .metadata.name +"  " + .metadata.namespace + "  "+($nodePort | tostring)  else "EXCLUDE"  end'  | grep -v "EXCLUDE" | sed 's/"//g'
