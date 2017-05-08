@@ -25,3 +25,6 @@ kubectl get services --all-namespaces -o yaml | grep -B9 nodePort | grep -e name
 
 ### get all services with nodeports using jq
 kubectl get services --all-namespaces -o json | jq '.items[] |  .spec.ports[].nodePort as $nodePort | if $nodePort != null then .metadata.name +"  " + .metadata.namespace + "  "+($nodePort | tostring)  else "EXCLUDE"  end'  | grep -v "EXCLUDE" | sed 's/"//g'
+
+### get all pod ips that are misregistered against other services in kube servers, because of a bug this happens when massive pod rolls happens
+kubectl get deployments --all-namespaces --no-headers | awk '{print $1"|"$2}' | sort | uniq | while read i; do n=$(echo $i | awk -F'|' '{print $1}'); d=$(echo $i | awk -F '|' '{print $2}');  echo -e "$n\t$d"; ips=$(__ips=""; kubectl get pods --namespace $n --no-headers | grep $d  | awk '{print $1}'| while read p; do kubectl get pods $p --namespace $n -o json| jq ".status.podIP" | sed 's/"//g'; done | sort | uniq | while read ip; do __ips="$__ips -ve $ip"; echo $__ips; done;); iptables -w -t nat -L | grep "$n/$d"| grep KUBE-MARK-MASQ |  grep $(echo "$ips" | tail -1); echo -e "\n\n\n"; done;
