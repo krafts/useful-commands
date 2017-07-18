@@ -1,0 +1,1 @@
+stty cols 1000; dstat -C total -tlfar --aio --fs --ipc --lock --raw --socket --tcp --udp --unix
