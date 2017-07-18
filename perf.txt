@@ -1,0 +1,13 @@
+### perf top: https://perf.wiki.kernel.org/index.php/Tutorial#Live_analysis_with_perf_top
+perf top
+
+### http://www.brendangregg.com/blog/2014-06-22/perf-cpu-sample.html
+sudo perf record -F 99 -a -g -- sleep 20
+git clone https://github.com/brendangregg/FlameGraph
+sudo perf script | FlameGraph/stackcollapse-perf.pl > out.perf-folded
+cat out.perf-folded  | FlameGraph/flamegraph.pl > perf-kernel.svg
+
+### one liner to do the above
+sudo perf record -F 99 -a -g -- sleep 20; d=$(date +"%Y-%m-%dT%H%M%S"); sudo perf script | FlameGraph/stackcollapse-perf.pl > out.perf-folded.$d && cat out.perf-folded.$d  | FlameGraph/flamegraph.pl > perf-kernel.$d.svg
+
+### perf examples at http://www.brendangregg.com/perf.html
