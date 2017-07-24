@@ -1,4 +1,4 @@
-## kill all jenkins queued jobs
+## kill all queued jobs
 ### https://gist.github.com/realityforge/c57eb3d1854320d14252ac881fc6cedf
 import hudson.model.*
 def q = Jenkins.instance.queue
