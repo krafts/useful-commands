@@ -1,0 +1,4 @@
+## generate decimal adler32 hash to match the sha1 digest checksum in the cassandra table-ka-1-Digest.sha1 file
+### xrdadler32 is part of xrootd-client.x86_64, placed in /usr/bin/xrdadler32
+### by default adler32 is in hex, and cassandra stores the decimal version
+echo $((16#$(xrdadler32 table-ka-1-Data.db | awk '{print $1}')))
