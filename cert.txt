@@ -1,0 +1,22 @@
+Cert:
+https://curl.haxx.se/ca/cacert.pem
+
+Detailed explanation:
+https://curl.haxx.se/docs/caextract.html
+
+Keep in mind they post updates:
+https://curl.haxx.se/ca/cacert-2016-04-20.pem
+https://curl.haxx.se/ca/cacert-2016-01-20.pem
+
+Source:
+http://mxr.mozilla.org/mozilla-central/source/security/nss/lib/ckfw/builtins/certdata.txt
+
+Converison tool:
+https://curl.haxx.se/docs/mk-ca-bundle.html
+
+2016-06-02T16:33:05Z-0400
+$ diff -u cacert.pem cacert-2016-04-20.pem
+2016-06-02T16:33:13Z-0400
+$ md5 cacert.pem cacert-2016-04-20.pem
+MD5 (cacert.pem) = 782dcde8f5d53b1b9e888fdf113c42b9
+MD5 (cacert-2016-04-20.pem) = 782dcde8f5d53b1b9e888fdf113c42b9
