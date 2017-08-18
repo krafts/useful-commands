@@ -93,3 +93,33 @@ ${xyz%/*}    ## dirname
 
 ########### END in general bash ###########
 
+
+### to group by a list
+
+    count: 1
+    flavor: "io1-15"
+    count: 1
+    flavor: "general1-4"
+    count: 1
+    flavor: 6
+    count: 1
+    flavor: "performance1-4"
+    count: 1
+    flavor: "performance1-4"
+    count: 1
+    flavor: "performance1-4"
+    count: 3
+    flavor: "general1-8"
+    count: 3
+    flavor: "general1-8"
+    count: 1
+    flavor: "io1-30"
+    count: 5
+    flavor: "io1-30"
+    count: 1
+    flavor: "6"
+
+ 
+grep -e count -e flavor spawn.yml  | while read i; do if echo $i | grep -q 'count'; then count=$(echo $i | awk '{print $2}'); fi; if echo $i | grep -q 'flavor'; then flavor=$(echo $i | awk '{print $2}' | sed 's/"//g'); echo $flavor $count;  fi; done |  awk '{ a[$1] += $2 } END { for (i in a) { printf "%-15s\t%s\n", i, a[i]; } }' | sort -k2 -nr
+
+
