@@ -1,3 +1,3 @@
 ## for stracing jvms
 ### http://betterlogic.com/roger/2009/01/how-to-use-strace-with-java/
-strace -f -p <pid> 2>&1 | grep -v clock_gettime | grep -v futex
+strace -f -p <pid> 2>&1 | grep -v clock_gettime | grep -v futex | grep -v gettimeofday
