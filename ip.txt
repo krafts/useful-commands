@@ -1,0 +1,5 @@
+### bring a device backup instead of using ifconfig
+# ip link set dev <interface> up
+# ip link set dev <interface> down
+ip link set dev eth0 up
+ip link set dev eth0 down
