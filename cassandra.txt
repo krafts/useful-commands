@@ -1,1 +1,4 @@
 <path>/cassandra/tools/bin/cassandra-stress write n=1000000 -mode native cql3 user=user password=password   -node 10.10.10.1,10.10.10.2,10.10.10.3
+
+## get progress of streaming, through netstats, not accurate!!! give a general idea though
+while true; do  s=$(nodetool netstats | grep Receiving | awk '{SUMTF+=$2;SUMCF+=$9;SUMTB+=$4;SUMCB+=$11} END {print SUMTF, SUMCF, SUMCB/SUMTB*100}'); d=$(date -Is); echo $d $s; sleep 5; done;
