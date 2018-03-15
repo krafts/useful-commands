@@ -4,4 +4,4 @@
 while true; do  s=$(nodetool netstats | grep Receiving | awk '{SUMTF+=$2;SUMCF+=$9;SUMTB+=$4;SUMCB+=$11} END {print SUMTF, SUMCF, SUMCB/SUMTB*100}'); d=$(date -Is); echo $d $s; sleep 5; done;
 
 ## repair in parallel cross dcs
-time nodetool repair -par --host <host-from-dc-0> -dc <dc1> -dc <dc2> system_auth
+time nodetool repair -par -hosts <host-from-dc-0> -dc <dc1> -dc <dc2> system_auth
