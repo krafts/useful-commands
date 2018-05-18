@@ -1,2 +1,27 @@
 ### force terminate repairs in cassandra using jmxterm
 echo "run -b org.apache.cassandra.db:type=StorageService forceTerminateAllRepairSessions" > java -jar /opt/datadog-agent/agent/checks/libs/jmxterm-1.0-DATADOG-uber.jar -l localhost:7199
+
+
+### from the interactive shell, get all attributes of a bean
+java -jar /opt/datadog-agent/agent/checks/libs/jmxterm-1.0-DATADOG-uber.jar -l localhost:7199
+$>get -b java.lang:type=Memory *
+#mbean = java.lang:type=Memory:
+ObjectPendingFinalizationCount = 0;
+
+HeapMemoryUsage = {
+  committed = 2034106368;
+  init = 2147483648;
+  max = 4181590016;
+  used = 670610520;
+ };
+
+NonHeapMemoryUsage = {
+  committed = 108003328;
+  init = 2555904;
+  max = -1;
+  used = 103298736;
+ };
+
+Verbose = true;
+
+ObjectName = java.lang:type=Memory;
