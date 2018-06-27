@@ -1,0 +1,4 @@
+## when su : must be run from a terminal
+### from https://evertpot.com/189/
+echo "import pty; pty.spawn('/bin/bash')" > /tmp/asdf.py
+python /tmp/asdf.py
