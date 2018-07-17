@@ -37,3 +37,6 @@ kubectl get pods --all-namespaces -o wide --no-headers | awk '{print $1"|"$2"|"$
 
 ## get total cpus used
 kubectl get pods --all-namespaces -o json | jq '.items[] | .spec.containers[].resources.requests.cpu' | grep -v null | sed 's/"//g' | awk '{SUM+=$1} END {print SUM}'
+
+### go template example
+kubectl get pods --no-headers --namespace=kube-system --output go-template='{{range.items}}{{$app := index .metadata.labels "k8s-app"}}{{if $app }}{{if eq $app "logs"}}{{if eq .status.phase "Running"}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}{{end}}{{end}}' | xargs -I {} kubectl delete pod --namespace=kube-system {}
