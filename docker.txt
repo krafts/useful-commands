@@ -1,0 +1,10 @@
+## docker to add capabilities i.e. privileged mode
+### https://linux.die.net/man/7/capabilities
+docker run --cap-add=NET_ADMIN --cap-add=NET_RAW <image_name>
+
+## docker-compose
+### https://docs.docker.com/compose/compose-file/#cap_add-cap_drop
+docker-compose-host:
+  image: <image_name>
+  cap_add: ['NET_ADMIN', 'NET_RAW']
+
