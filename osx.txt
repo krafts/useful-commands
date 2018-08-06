@@ -1,0 +1,2 @@
+## clear out dns cache
+sudo killall -HUP mDNSResponder
