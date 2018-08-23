@@ -1,0 +1,2 @@
+## get total nodes in a kubernetes cluster
+"q": "sum:kubernetes_state.nodes.by_condition{condition:ready,env:env}"
