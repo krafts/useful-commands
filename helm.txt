@@ -1,0 +1,3 @@
+##upgrade server side helm version to match client version
+helm init --upgrade
+
