@@ -1,0 +1,2 @@
+### random string generator
+''.join([random.choice(string.ascii_lowercase + string.digits) for n in xrange(10)])
