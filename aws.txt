@@ -3,3 +3,6 @@ for i in us-east-1 us-east-2 us-west-2 us-west-1; do echo $i; aws ec2 --region $
 
 ### get a list of subnetids, name, associated vpcids, cidr block and az in a region
 for i in us-east-1 us-east-2 us-west-2 us-west-1; do echo $i;  aws ec2 --region $i describe-subnets --output text --query 'Subnets[].[VpcId,Tags[?Key==`Name`].Value | [0],CidrBlock,AvailabilityZone]'; echo; done;
+
+### get ips of machines using instance ids
+aws ec2 describe-instances --instance-ids i-00000000000 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text
