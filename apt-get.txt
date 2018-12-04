@@ -1,0 +1,2 @@
+### debug the http calls for apt-get
+apt-get -o Debug::Acquire::Http=true update
