@@ -1,0 +1,2 @@
+### wget entire site
+wget -nv -e robots=off '--reject=index.html*' -X '/logs/lost+found' --retry-on-http-error=503  --certificate=client.crt  --private-key=client.key  --waitretry=5 -r -nH --no-parent  https://logs.com/logs/
