@@ -41,6 +41,9 @@ kubectl get pods --all-namespaces -o json | jq '.items[] | .spec.containers[].re
 ### get total cpus used/requested including the millicpus
 kubectl get pods --all-namespaces -o json | jq '.items[] | .spec.containers[].resources.requests.cpu' | grep -v null | sed 's/"//g'| while read i; do if [[ $i == *m ]]; then i=${i%%m}; i=$(awk "BEGIN {printf \"%.2f\",${i}/1000}"); fi; echo $i; done | awk '{SUM+=$1} END {print SUM}'
 
+### get total memory used/requested
+kubectl get pods --all-namespaces -o json | jq '.items[] | .spec.containers[].resources.requests.memory' | grep -v null | sed 's/"//g'| while read i; do if [[ $i == *Mi ]]; then i=${i%%Mi}; i=$(awk "BEGIN {printf \"%.2f\",${i}/1000}"); fi; if [[ $i == *Gi ]]; then i=${i%%Gi}; fi; echo $i; done | awk '{SUM+=$1} END {print SUM}'
+
 ### go template example
 kubectl get pods --no-headers --namespace=kube-system --output go-template='{{range.items}}{{$app := index .metadata.labels "k8s-app"}}{{if $app }}{{if eq $app "logs"}}{{if eq .status.phase "Running"}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}{{end}}{{end}}' | xargs -I {} kubectl delete pod --namespace=kube-system {}
 
