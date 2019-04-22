@@ -1,0 +1,2 @@
+## re-run vm startup scripts
+sudo google_metadata_script_runner --script-type startup --debug
