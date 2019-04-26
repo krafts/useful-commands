@@ -1,0 +1,10 @@
+line feed vs carriage return
+CR -> Carraige Return - \r (return to front of the line)
+LF -> Line Feed - \n (next line)
+windows: CRLF (\r\n)
+linux: LF \n
+macos: LF \n
+
+references:
+https://stackoverflow.com/questions/12747722/what-is-the-difference-between-a-line-feed-and-a-carriage-return
+https://stackoverflow.com/questions/6373888/converting-newline-formatting-from-mac-to-windows
