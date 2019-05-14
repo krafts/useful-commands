@@ -1,2 +1,5 @@
 ## re-run vm startup scripts
 sudo google_metadata_script_runner --script-type startup --debug
+
+## delete the entire image from container registry
+gcloud container images list-tags ${IMAGE_REPO}/${IMAGE_PROJECT}/${IMAGE_TO_DELETE}  --format='get(digest)'  | while read digest; do gcloud container images delete ${IMAGE_REPO}/${IMAGE_PROJECT}/${IMAGE_TO_DELETE}@${digest} --force-delete-tags --quiet; done;
