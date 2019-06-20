@@ -2,3 +2,8 @@
 
 export CFLAGS="-I/usr/local/ssl/include"
 export LDFLAGS="-L/usr/local/lib"
+
+
+
+## to see the certificate details
+openssl x509 -text < ssl_certificate.cer
