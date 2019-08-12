@@ -1,0 +1,8 @@
+## virtualenv commands
+mkvirtualenv --python=~/.pyenv/shims/python3 hello
+
+## https://stackoverflow.com/a/30233408
+python3 -m venv /path/to/new/virtual/environment
+
+## pyenv
+https://github.com/pyenv/pyenv
