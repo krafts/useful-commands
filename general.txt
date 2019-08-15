@@ -125,6 +125,7 @@ grep -e count -e flavor spawn.yml  | while read i; do if echo $i | grep -q 'coun
 ### parse /proc/<pid>/cmdline
 ### https://stackoverflow.com/a/6133243
 cat /proc/1/cmdline| tr '\0' '\n'
+xargs -0 -L1 -a /proc/1/environ | sort
 
 ### dos2unix
 ### http://koenaerts.ca/dos2unix-equivalent/
