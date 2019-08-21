@@ -7,3 +7,39 @@ export LDFLAGS="-L/usr/local/lib"
 
 ## to see the certificate details
 openssl x509 -text < ssl_certificate.cer
+
+
+## create certs using conf file
+export work_dir="work_dir"
+openssl req -x509 -nodes -config "$work_dir/openssl.conf" -out "$work_dir/certificate.crt"
+
+### openssl.conf ###
+OUT_DIR                  = $ENV::work_dir
+
+[ req ]
+default_bits             = 4096
+default_md               = sha256
+default_keyfile          = $OUT_DIR/certificate.key
+distinguished_name       = subject
+string_mask              = utf8only
+prompt                   = no
+x509_extensions          = subjectAltName
+
+[ subject ]
+C                        = US
+ST                       = New York
+L                        = New York
+O                        = Org
+OU                       = Org Unit
+CN                       = Application
+emailAddress             = application@orgunit.com
+
+[ subjectAltName ]
+subjectAltName           = @subject_alt_names
+#subjectAltName          = DNS:orgunit.com,DNS:localhost,DNS:127.0.0.1
+
+[ subject_alt_names ]
+DNS.1                    = orgunit.com
+DNS.2                    = localhost
+DNS.3                    = 127.0.0.1
+
