@@ -5,3 +5,8 @@ git rebase [-i] --root $tip
 ## show the info on a merge commit
 ### http://stackoverflow.com/questions/19174497/how-to-show-diff-of-changes-made-in-a-merge-commit/#19176519
 git log -p --cc <commit_id>
+
+## trace line history in a file
+### https://stackoverflow.com/a/19757441/2967463
+### https://stackoverflow.com/a/19757493/2967463
+git lg -L 3,+3:<file_path>
