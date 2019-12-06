@@ -19,6 +19,7 @@ ansible -vv -i inventory/<inventory_file> <kubernetes_master_host_group> -m shel
 
 ### scale replicas
 kubectl scale rc <rc_name> --replicas=3  --namespace <namespace>
+kubectl scale statefulsets <stateful-set-name> --replicas=<new-replicas>
 
 ### get all services with nodeports
 kubectl get services --all-namespaces -o yaml | grep -B9 nodePort | grep -e name -e namespace  -e nodePort | grep -v namespaces | grep -v '\- name' | while read i; do if [ -z "${i##*namespace:*}" ]; then namespace=$(echo $i | sed 's/namespace: //g'); fi; if [ -z "${i##*name:*}" ]; then service=$(echo $i | sed 's/name: //g'); fi; if [ -z "${i##*nodePort:*}" ]; then  nodeport=$(echo $i | sed 's/nodePort: //g'); fi; if [ -n "$nodeport" ]; then echo "$namespace/$service $nodeport"; unset nodeport; fi; done;
