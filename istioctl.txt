@@ -1,0 +1,15 @@
+istioctl get config
+istioctl version
+istioctl version --remote
+istioctl verify-install
+istioctl proxy-status
+istioctl proxy-config clusters <application-pod-name.application-namespace>
+istioctl proxy-config routes <application-pod-name.application-namespace>
+istioctl proxy-config endpoints <application-pod-name.application-namespace>
+istioctl proxy-config listener <application-pod-name.application-namespace>
+istioctl get routes
+istioctl get virtualservices
+## similar commands to get routes, listeners, etc from istio ingressgateway
+istioctl proxy-config routes <istio-ingressgateway-pod-name.istio-namespace> -o json
+istioctl proxy-config listener <istio-ingressgateway-pod-name.istio-namespace> --port 443
+istioctl proxy-config listener <istio-ingressgateway-pod-name.istio-namespace> --port 443 -o json
