@@ -10,3 +10,7 @@ git log -p --cc <commit_id>
 ### https://stackoverflow.com/a/19757441/2967463
 ### https://stackoverflow.com/a/19757493/2967463
 git lg -L 3,+3:<file_path>
+
+## squash and preserve comments
+### https://stackoverflow.com/a/5201642
+git reset --soft HEAD~3 && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"
