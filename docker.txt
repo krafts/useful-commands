@@ -8,3 +8,15 @@ docker-compose-host:
   image: <image_name>
   cap_add: ['NET_ADMIN', 'NET_RAW']
 
+## get processes mapping on a vm to docker containers
+### https://stackoverflow.com/a/48922355
+systemd-cgls -l
+
+docker ps | grep <k8s namespace> | grep <image name> ## get docker container id
+systemd-cgls -l | grep -A 1 <docker container id>
+
+systemd-cgls -l | grep <process argument identifiers>
+
+
+## show top control groups by their resource usage (not as useful, but good to have)
+systemd-cgtop
