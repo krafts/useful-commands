@@ -1,0 +1,38 @@
+## install open jdk 11 on toolbox
+echo 'deb http://ftp.debian.org/debian stretch-backports main' | tee /etc/apt/sources.list.d/stretch-backports.list
+apt-get update
+apt-get install openjdk-11-jdk
+
+## run force GC from command line
+### https://stackoverflow.com/a/36288080
+jcmd <pid> GC.run
+
+## get heap info before running GC from command line
+jcmd <pid> GC.heap_info
+
+## jcmd help
+# jcmd <pid> help
+<pid>:
+The following commands are available:
+VM.native_memory
+ManagementAgent.stop
+ManagementAgent.start_local
+ManagementAgent.start
+VM.classloader_stats
+GC.rotate_log
+Thread.print
+GC.class_stats
+GC.class_histogram
+GC.heap_dump
+GC.finalizer_info
+GC.heap_info
+GC.run_finalization
+GC.run
+VM.uptime
+VM.dynlibs
+VM.flags
+VM.system_properties
+VM.command_line
+VM.version
+help
+
