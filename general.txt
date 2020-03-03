@@ -130,3 +130,8 @@ xargs -0 -L1 -a /proc/1/environ | sort
 ### dos2unix
 ### http://koenaerts.ca/dos2unix-equivalent/
 tr -d '\015'
+
+## generate a password from /dev/urandom
+### this produces a password of 32 chars
+### https://gist.github.com/earthgecko/3089509
+cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 31 | head -n 1
