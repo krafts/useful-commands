@@ -1,0 +1,15 @@
+## to quickly test a CORS issue in the browser console
+### token and modified from https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api#cross-origin_requests
+fetch('https://some-other-domain.com', {mode: 'cors', headers: {
+      'Authorization': 'Bearer token'
+    }})
+  .then(function(response) {
+    return response.text();
+  })
+  .then(function(text) {
+    console.log('Request successful', text);
+  })
+  .catch(function(error) {
+    log('Request failed', error)
+  });
+
