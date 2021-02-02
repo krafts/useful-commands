@@ -61,3 +61,7 @@ kubectl run alpine --image=alpine:3.8 --command -- sleep 9999
 #### get allocated cpu reqs and mem reqs on nodes
 echo -e "node\t\t\t\t\t\tcpu reqs\tmem reqs";kubectl get nodes -A -o=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' | while read node; do cpu=$(kubectl describe node $node | grep -e cpu | grep -v -e cpu: | awk '{print $2" "$3}'); mem=$(kubectl describe node $node | grep -e memory | grep -v -e memory: -e MemoryPressure | awk '{print $2" "$3}'); echo -e "$node\t$cpu\t$mem"; done;
 
+
+### jsonpath skip special chars
+kubectl -n default get secrets docker-creds -o jsonpath="{.data.\.dockerconfigjson}" | base64 -d
+

@@ -10,3 +10,6 @@ cat servers.txt  | while read i; do curl -s -H "X-Auth-Token: notreal" https://i
 
 ### jq to get kubernetes services with nodeports
 kubectl get services --all-namespaces -o json | jq '.items[] |  .spec.ports[].nodePort as $nodePort | if $nodePort != null then .metadata.name +"  " + .metadata.namespace + "  "+($nodePort | tostring)  else "EXCLUDE"  end'  | grep -v "EXCLUDE" | sed 's/"//g'
+
+### jq skip special chars
+kubectl -n default get secrets docker-creds -o json | jq '.data.".dockerconfigjson"' -r | base64 -d
