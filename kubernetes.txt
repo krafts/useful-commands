@@ -65,3 +65,9 @@ echo -e "node\t\t\t\t\t\tcpu reqs\tmem reqs";kubectl get nodes -A -o=jsonpath='{
 ### jsonpath skip special chars
 kubectl -n default get secrets docker-creds -o jsonpath="{.data.\.dockerconfigjson}" | base64 -d
 
+### get ip of a pod with a specific interface
+kubectl -n default get pod storage -o=jsonpath='{.status.interfaces[?(@.interfaceName=="ADMIN")].ipAddress}' | sed 's|/.*||'
+
+### get ip of a node that the pod is on
+kubectl get node $(kubectl -n default get pod storage -o=jsonpath='{.status.nodeName}') -o=jsonpath='{.status.addresses[?(@.type=="InternalIP")].address}'
+
