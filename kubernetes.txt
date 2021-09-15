@@ -73,3 +73,6 @@ kubectl get node $(kubectl -n default get pod storage -o=jsonpath='{.status.node
 
 ### get service account jwt token
 kubectl -n default get secret $(kubectl -n default get serviceaccount admin -o=jsonpath='{.secrets[0].name}') -o=jsonpath='{.data.token}' | base64 -d
+
+### get events for objects by name
+kubectl -n default get events --field-selector involvedObject.name=pod-xyz-123
