@@ -76,3 +76,9 @@ kubectl -n default get secret $(kubectl -n default get serviceaccount admin -o=j
 
 ### get events for objects by name
 kubectl -n default get events --field-selector involvedObject.name=pod-xyz-123
+
+### get permissions/rbac of current user
+kubectl -n default auth can-i --list
+
+### get permissions/rbac of a serviceaccount
+kubectl -n default auth can-i --list --as=system:serviceaccount:namespace:serviceaccount
