@@ -82,3 +82,7 @@ kubectl -n default auth can-i --list
 
 ### get permissions/rbac of a serviceaccount
 kubectl -n default auth can-i --list --as=system:serviceaccount:namespace:serviceaccount
+
+### get pods that are not ready
+### https://gist.github.com/ernoaapa/c8ef4973aa30104cfc898ec94b7e3f29
+kubectl get pods --all-namespaces -o go-template='{{ range  $item := .items }}{{ range .status.conditions }}{{ if (or (and (eq .type "PodScheduled") (eq .status "False")) (and (eq .type "Ready") (eq .status "False"))) }}{{ $item.metadata.name}} {{ end }}{{ end }}{{ end }}'
