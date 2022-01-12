@@ -86,3 +86,6 @@ kubectl -n default auth can-i --list --as=system:serviceaccount:namespace:servic
 ### get pods that are not ready
 ### https://gist.github.com/ernoaapa/c8ef4973aa30104cfc898ec94b7e3f29
 kubectl get pods --all-namespaces -o go-template='{{ range  $item := .items }}{{ range .status.conditions }}{{ if (or (and (eq .type "PodScheduled") (eq .status "False")) (and (eq .type "Ready") (eq .status "False"))) }}{{ $item.metadata.name}} {{ end }}{{ end }}{{ end }}'
+
+### delete evicted pods
+namespace=namespace; kubectl -n $namespace delete pods $(kubectl -n $namespace get pods -o=jsonpath='{.items[?(@.status.reason=="Evicted")].metadata.name}')
