@@ -89,3 +89,6 @@ kubectl get pods --all-namespaces -o go-template='{{ range  $item := .items }}{{
 
 ### delete evicted pods
 namespace=namespace; kubectl -n $namespace delete pods $(kubectl -n $namespace get pods -o=jsonpath='{.items[?(@.status.reason=="Evicted")].metadata.name}')
+
+### create docker image pull secret
+kubectl -n default create secret generic docker-image-pull-secret --from-file=.dockerconfigjson=.dockerconfigjson.secret --type=kubernetes.io/dockerconfigjson
