@@ -92,3 +92,18 @@ namespace=namespace; kubectl -n $namespace delete pods $(kubectl -n $namespace g
 
 ### create docker image pull secret
 kubectl -n default create secret generic docker-image-pull-secret --from-file=.dockerconfigjson=.dockerconfigjson.secret --type=kubernetes.io/dockerconfigjson
+
+### annotate an object / add annotation to an object
+kubectl -n default annotate deployment test "test=test"
+
+### label an object / add label to an object
+kubectl -n default label deployment test "test=test"
+
+### update both annotation and label on a object
+kubectl -n default patch deployment test --type='merge' -p '{"metadata": {"annotations": {"test": "test"}, "labels": {"test": "test"}}}'
+
+### patch/update annotation on pod spec template of a deployment
+kubectl -n default patch deployment test -p '{"spec": {"template": {"metadata": {"annotations": {"test": "test"}}}}}'
+
+### patch/remove annotation on pod spec template of a deployment
+kubectl -n default patch deployment test --type=json -p='[{"op":"remove", "path":"/spec/template/metadata/annotations/test"}]'
