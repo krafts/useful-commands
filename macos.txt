@@ -1,2 +1,20 @@
 ## clear out dns cache
 sudo killall -HUP mDNSResponder
+
+## macos binary remove from quarantine
+## this does not happen when downloading from curl/cmdline only when using a
+## browser
+$ kpt_darwin_amd64 version
+Killed: 9
+
+$ xattr -l kpt_darwin_amd64
+com.apple.metadata:kMDItemWhereFroms: bplist00_%https://objects.githubusercontent.com/github-production-release-asset-2e65be/208908993/d8368499-7170-4c55-a347-79b705b30983?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20231208%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231208T140956Z&X-Amz-Expires=300&X-Amz-Signature=f3c8a790a0ca73172a007fa0a8b538f757d0c9cb67f8921fff5833f924ea1785&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=208908993&response-content-disposition=attachment%3B%20filename%3Dkpt_darwin_amd64&response-content-type=application%2Foctet-stream_https://kpt.dev/
+com.apple.quarantine: 0081;657323e5;Firefox;3ED8AD5B-9807-4751-B024-1139BA3BAD34
+
+$ xattr -d com.apple.quarantine kpt_darwin_amd64
+
+$ xattr -l kpt_darwin_amd64
+com.apple.metadata:kMDItemWhereFroms: bplist00_%https://objects.githubusercontent.com/github-production-release-asset-2e65be/208908993/d8368499-7170-4c55-a347-79b705b30983?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20231208%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231208T140956Z&X-Amz-Expires=300&X-Amz-Signature=f3c8a790a0ca73172a007fa0a8b538f757d0c9cb67f8921fff5833f924ea1785&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=208908993&response-content-disposition=attachment%3B%20filename%3Dkpt_darwin_amd64&response-content-type=application%2Foctet-stream_https://kpt.dev/
+
+$ kpt_darwin_amd64 version
+1.0.0-beta.44
