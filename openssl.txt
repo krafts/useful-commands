@@ -49,3 +49,7 @@ echo | openssl s_client -showcerts -servername gnupg.org -connect gnupg.org:443 
 
 ## show the certs being served by the server
 openssl s_client -nbio -state -connect localhost:8080 -showcerts
+
+## show text of all certs in a pem file
+## https://unix.stackexchange.com/a/696244
+while openssl x509 -noout -text; do :; done < cert.pem
