@@ -108,3 +108,11 @@ kubectl -n default patch deployment test -p '{"spec": {"template": {"metadata": 
 
 ### patch/remove annotation on pod spec template of a deployment
 kubectl -n default patch deployment test --type=json -p='[{"op":"remove", "path":"/spec/template/metadata/annotations/test"}]'
+
+### add a debug container
+kubectl -n default debug -it debug <pod-name> --image=alpine -- sh
+
+### merge multiple kube config files
+### https://stackoverflow.com/a/46184649
+export KUBECONFIG=~/.kube/config:~/.kube_other/other.kubeconfig:~/.kube_some_other/some_other.kubeconfig
+kubectl config view --flatten
